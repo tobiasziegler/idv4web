@@ -1,0 +1,20 @@
+{
+  "name": "idv4web",
+  "version": "1.0.0",
+  "description":
+    "Code exercises while working through \"Interactive Data Visualization for the Web (2nd ed.)\"",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tobiasziegler/idv4web.git"
+  },
+  "author": "David Mallard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tobiasziegler/idv4web/issues"
+  },
+  "homepage": "https://github.com/tobiasziegler/idv4web#readme"
+}
