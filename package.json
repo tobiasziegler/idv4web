@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/tobiasziegler/idv4web/issues"
   },
-  "homepage": "https://github.com/tobiasziegler/idv4web#readme"
+  "homepage": "https://github.com/tobiasziegler/idv4web#readme",
+  "dependencies": {
+    "d3": "^5.1.0"
+  }
 }
