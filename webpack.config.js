@@ -5,5 +5,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: __dirname + '/public/index.html'
     })
-  ]
+  ],
+  devServer: {
+    open: true
+  }
 };
