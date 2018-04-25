@@ -1,8 +1,7 @@
 {
   "name": "idv4web",
   "version": "1.0.0",
-  "description":
-    "Code exercises while working through \"Interactive Data Visualization for the Web (2nd ed.)\"",
+  "description": "Code exercises while working through \"Interactive Data Visualization for the Web (2nd ed.)\"",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,5 +18,8 @@
   "homepage": "https://github.com/tobiasziegler/idv4web#readme",
   "dependencies": {
     "d3": "^5.1.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.12.1"
   }
 }
