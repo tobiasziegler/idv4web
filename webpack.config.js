@@ -6,6 +6,15 @@ module.exports = {
       template: __dirname + '/public/index.html'
     })
   ],
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      }
+    ]
+  },
   devServer: {
     open: true
   }
