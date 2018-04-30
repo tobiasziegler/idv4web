@@ -5,7 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: {
     index: './src/index.js',
-    new_element: './src/01-new-element.js'
+    new_element: './src/01-new-element.js',
+    data: './src/02-data.js'
   },
   output: {
     filename: '[name].bundle.js',
@@ -21,6 +22,11 @@ module.exports = {
       filename: '01-new-element.html',
       template: __dirname + '/public/01-new-element.html',
       chunks: ['new_element']
+    }),
+    new HtmlWebpackPlugin({
+      filename: '02-data.html',
+      template: __dirname + '/public/02-data.html',
+      chunks: ['data']
     })
   ],
   module: {
