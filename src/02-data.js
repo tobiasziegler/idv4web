@@ -9,4 +9,4 @@ d3
   .enter()
   .append('p')
   .text(d => 'I can count up to ' + d)
-  .style('color', 'red');
+  .style('color', d => (d > 15 ? 'red' : 'black'));
