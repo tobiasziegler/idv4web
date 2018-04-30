@@ -8,4 +8,4 @@ d3
   .data(dataset)
   .enter()
   .append('p')
-  .text(d => d);
+  .text(d => 'I can count up to ' + d);
