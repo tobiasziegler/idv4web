@@ -5,7 +5,7 @@ let dataset = []; // Initialise empty array
 
 for (let i = 0; i < 25; i++) {
   // Loop 25 times
-  const newNumber = Math.random() * 30; // New random number 0-30
+  const newNumber = Math.floor(Math.random() * 30); // New random number 0-30
   dataset.push(newNumber); // Add new number to the array
 }
 
