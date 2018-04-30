@@ -8,4 +8,5 @@ d3
   .data(dataset)
   .enter()
   .append('p')
-  .text(d => 'I can count up to ' + d);
+  .text(d => 'I can count up to ' + d)
+  .style('color', 'red');
