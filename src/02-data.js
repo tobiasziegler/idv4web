@@ -8,4 +8,4 @@ d3
   .data(dataset)
   .enter()
   .append('p')
-  .text('New paragraph!');
+  .text(d => d);
