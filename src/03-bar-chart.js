@@ -10,4 +10,4 @@ d3
   .enter()
   .append('div')
   .attr('class', 'bar')
-  .style('height', d => d + 'px');
+  .style('height', d => d * 5 + 'px');
