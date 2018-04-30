@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import './03-bar-chart.css';
+import './03-div-bar-chart.css';
 
 let dataset = []; // Initialise empty array
 
