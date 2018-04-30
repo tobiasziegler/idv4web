@@ -9,4 +9,5 @@ d3
   .data(dataset)
   .enter()
   .append('div')
-  .attr('class', 'bar');
+  .attr('class', 'bar')
+  .style('height', d => d + 'px');
