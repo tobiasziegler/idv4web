@@ -28,6 +28,11 @@ const yScale = d3
   .domain([0, d3.max(dataset, d => d[1])])
   .range([h - padding, padding]);
 
+const rScale = d3
+  .scaleLinear()
+  .domain([0, d3.max(dataset, d => d[1])])
+  .range([2, 5]);
+
 // Create SVG element
 const svg = d3
   .select('body')
@@ -42,7 +47,7 @@ svg
   .append('circle')
   .attr('cx', d => xScale(d[0]))
   .attr('cy', d => yScale(d[1]))
-  .attr('r', d => Math.sqrt(h - d[1]));
+  .attr('r', d => rScale(d[1]));
 
 svg
   .selectAll('text')
