@@ -21,4 +21,7 @@ const circles = svg
 circles
   .attr('cx', (d, i) => i * 50 + 25)
   .attr('cy', h / 2)
-  .attr('r', d => d);
+  .attr('r', d => d)
+  .attr('fill', 'yellow')
+  .attr('stroke', 'orange')
+  .attr('stroke-width', d => d / 2);
