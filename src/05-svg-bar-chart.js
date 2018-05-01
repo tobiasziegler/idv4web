@@ -44,4 +44,4 @@ svg
   .attr('y', d => h - d * 4) // Height minus data value
   .attr('width', w / dataset.length - barPadding)
   .attr('height', d => d * 4)
-  .attr('fill', 'teal');
+  .attr('fill', d => 'rgb(0, 0, ' + Math.round(d * 10) + ')');
