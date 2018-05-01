@@ -9,7 +9,8 @@ module.exports = {
     data: './src/02-data.js',
     div_bar_chart: './src/03-div-bar-chart.js',
     circles: './src/04-circles.js',
-    svg_bar_chart: './src/05-svg-bar-chart.js'
+    svg_bar_chart: './src/05-svg-bar-chart.js',
+    scatterplot: './src/06-scatterplot.js'
   },
   output: {
     filename: '[name].bundle.js',
@@ -45,6 +46,11 @@ module.exports = {
       filename: '05-svg-bar-chart.html',
       template: __dirname + '/public/05-svg-bar-chart.html',
       chunks: ['svg_bar_chart']
+    }),
+    new HtmlWebpackPlugin({
+      filename: '06-scatterplot.html',
+      template: __dirname + '/public/06-scatterplot.html',
+      chunks: ['scatterplot']
     })
   ],
   module: {
