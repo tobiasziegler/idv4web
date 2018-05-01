@@ -7,7 +7,8 @@ module.exports = {
     index: './src/index.js',
     new_element: './src/01-new-element.js',
     data: './src/02-data.js',
-    div_bar_chart: './src/03-div-bar-chart.js'
+    div_bar_chart: './src/03-div-bar-chart.js',
+    circles: './src/04-circles.js'
   },
   output: {
     filename: '[name].bundle.js',
@@ -33,6 +34,11 @@ module.exports = {
       filename: '03-div-bar-chart.html',
       template: __dirname + '/public/03-div-bar-chart.html',
       chunks: ['div_bar_chart']
+    }),
+    new HtmlWebpackPlugin({
+      filename: '04-circles.html',
+      template: __dirname + '/public/04-circles.html',
+      chunks: ['circles']
     })
   ],
   module: {
