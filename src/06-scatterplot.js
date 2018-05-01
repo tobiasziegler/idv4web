@@ -32,4 +32,4 @@ svg
   .append('circle')
   .attr('cx', d => d[0])
   .attr('cy', d => d[1])
-  .attr('r', 5);
+  .attr('r', d => Math.sqrt(h - d[1]));
