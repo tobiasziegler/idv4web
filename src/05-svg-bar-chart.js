@@ -45,3 +45,19 @@ svg
   .attr('width', w / dataset.length - barPadding)
   .attr('height', d => d * 4)
   .attr('fill', d => 'rgb(0, 0, ' + Math.round(d * 10) + ')');
+
+svg
+  .selectAll('text')
+  .data(dataset)
+  .enter()
+  .append('text')
+  .text(d => d)
+  .attr(
+    'x',
+    (d, i) => i * (w / dataset.length) + (w / dataset.length - barPadding) / 2
+  )
+  .attr('y', d => h - d * 4 + 14)
+  .attr('font-family', 'sans-serif')
+  .attr('font-size', '11px')
+  .attr('fill', 'white')
+  .attr('text-anchor', 'middle');
