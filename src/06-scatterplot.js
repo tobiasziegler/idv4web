@@ -26,7 +26,7 @@ const xScale = d3
 const yScale = d3
   .scaleLinear()
   .domain([0, d3.max(dataset, d => d[1])])
-  .range([0, h]);
+  .range([h, 0]);
 
 // Create SVG element
 const svg = d3
