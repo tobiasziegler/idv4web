@@ -33,3 +33,15 @@ svg
   .attr('cx', d => d[0])
   .attr('cy', d => d[1])
   .attr('r', d => Math.sqrt(h - d[1]));
+
+svg
+  .selectAll('text')
+  .data(dataset)
+  .enter()
+  .append('text')
+  .text(d => d[0] + ',' + d[1])
+  .attr('x', d => d[0])
+  .attr('y', d => d[1])
+  .attr('font-family', 'sans-serif')
+  .attr('font-size', '11px')
+  .attr('fill', 'red');
