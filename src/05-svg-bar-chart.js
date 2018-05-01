@@ -41,6 +41,6 @@ svg
   .enter()
   .append('rect')
   .attr('x', (d, i) => i * (w / dataset.length)) // Bar width of 20 plus 1 for padding
-  .attr('y', 0)
+  .attr('y', d => h - d * 4) // Height minus data value
   .attr('width', w / dataset.length - barPadding)
-  .attr('height', 100);
+  .attr('height', d => d * 4);
