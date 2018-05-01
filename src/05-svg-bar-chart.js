@@ -26,6 +26,7 @@ const dataset = [
 // Width and height
 const w = 500;
 const h = 100;
+const barPadding = 1;
 
 // Create SVG element
 const svg = d3
@@ -39,7 +40,7 @@ svg
   .data(dataset)
   .enter()
   .append('rect')
-  .attr('x', (d, i) => i * 21) // Bar width of 20 plus 1 for padding
+  .attr('x', (d, i) => i * (w / dataset.length)) // Bar width of 20 plus 1 for padding
   .attr('y', 0)
-  .attr('width', 20)
+  .attr('width', w / dataset.length - barPadding)
   .attr('height', 100);
