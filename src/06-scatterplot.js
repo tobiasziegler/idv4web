@@ -16,7 +16,7 @@ const dataset = [
 
 // Width and height
 const w = 500;
-const h = 100;
+const h = 300;
 const padding = 20;
 
 const xScale = d3
