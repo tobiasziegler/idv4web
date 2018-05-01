@@ -39,7 +39,7 @@ svg
   .data(dataset)
   .enter()
   .append('rect')
-  .attr('x', 0)
+  .attr('x', (d, i) => i * 21) // Bar width of 20 plus 1 for padding
   .attr('y', 0)
   .attr('width', 20)
   .attr('height', 100);
