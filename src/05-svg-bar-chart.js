@@ -70,28 +70,13 @@ svg
   .attr('text-anchor', 'middle');
 
 d3.select('p').on('click', () => {
-  dataset = [
-    11,
-    12,
-    15,
-    20,
-    18,
-    17,
-    16,
-    18,
-    23,
-    25,
-    5,
-    10,
-    13,
-    19,
-    21,
-    25,
-    22,
-    18,
-    15,
-    13
-  ];
+  // New values for dataset
+  const numValues = dataset.length; // Count original length of dataset
+  dataset = []; // Initialize empty array
+  for (let i = 0; i < numValues; i++) {
+    const newNumber = Math.floor(Math.random() * 25); // New random integer (0-24)
+    dataset.push(newNumber); // Add new number to array
+  }
 
   svg
     .selectAll('rect')
