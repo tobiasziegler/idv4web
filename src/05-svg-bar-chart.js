@@ -24,9 +24,19 @@ const dataset = [
 ];
 
 // Width and height
-const w = 500;
-const h = 100;
-const barPadding = 1;
+const w = 600;
+const h = 250;
+
+const xScale = d3
+  .scaleBand()
+  .domain(d3.range(dataset.length))
+  .rangeRound([0, w])
+  .paddingInner(0.05);
+
+const yScale = d3
+  .scaleLinear()
+  .domain([0, d3.max(dataset)])
+  .range([0, h]);
 
 // Create SVG element
 const svg = d3
@@ -40,10 +50,10 @@ svg
   .data(dataset)
   .enter()
   .append('rect')
-  .attr('x', (d, i) => i * (w / dataset.length)) // Bar width of 20 plus 1 for padding
-  .attr('y', d => h - d * 4) // Height minus data value
-  .attr('width', w / dataset.length - barPadding)
-  .attr('height', d => d * 4)
+  .attr('x', (d, i) => xScale(i))
+  .attr('y', d => h - yScale(d))
+  .attr('width', xScale.bandwidth())
+  .attr('height', d => yScale(d))
   .attr('fill', d => 'rgb(0, 0, ' + Math.round(d * 10) + ')');
 
 svg
@@ -52,11 +62,8 @@ svg
   .enter()
   .append('text')
   .text(d => d)
-  .attr(
-    'x',
-    (d, i) => i * (w / dataset.length) + (w / dataset.length - barPadding) / 2
-  )
-  .attr('y', d => h - d * 4 + 14)
+  .attr('x', (d, i) => xScale(i) + xScale.bandwidth() / 2)
+  .attr('y', d => h - yScale(d) + 14)
   .attr('font-family', 'sans-serif')
   .attr('font-size', '11px')
   .attr('fill', 'white')
