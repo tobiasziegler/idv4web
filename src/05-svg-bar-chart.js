@@ -96,6 +96,7 @@ d3.select('p').on('click', () => {
   svg
     .selectAll('rect')
     .data(dataset)
+    .transition()
     .attr('y', d => h - yScale(d))
     .attr('height', d => yScale(d))
     .attr('fill', d => 'rgb(0, 0, ' + Math.round(d * 10) + ')');
