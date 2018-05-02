@@ -34,6 +34,8 @@ const aScale = d3
   .domain([0, d3.max(dataset, d => d[1])])
   .range([0, 10]);
 
+const xAxis = d3.axisBottom().scale(xScale);
+
 // Create SVG element
 const svg = d3
   .select('body')
@@ -61,3 +63,5 @@ svg
   .attr('font-family', 'sans-serif')
   .attr('font-size', '11px')
   .attr('fill', 'red');
+
+svg.append('g').call(xAxis);
