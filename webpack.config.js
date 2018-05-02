@@ -11,7 +11,8 @@ module.exports = {
     div_bar_chart: './src/03-div-bar-chart.js',
     circles: './src/04-circles.js',
     svg_bar_chart: './src/05-svg-bar-chart.js',
-    scatterplot: './src/06-scatterplot.js'
+    scatterplot: './src/06-scatterplot.js',
+    time_scale: './src/07-time-scale.js'
   },
   output: {
     filename: '[name].bundle.js',
@@ -52,6 +53,11 @@ module.exports = {
       filename: '06-scatterplot.html',
       template: __dirname + '/public/06-scatterplot.html',
       chunks: ['scatterplot']
+    }),
+    new HtmlWebpackPlugin({
+      filename: '07-time-scale.html',
+      template: __dirname + '/public/07-time-scale.html',
+      chunks: ['time_scale']
     }),
     new CopyWebpackPlugin([
       {
