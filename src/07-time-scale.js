@@ -35,6 +35,16 @@ d3.csv('data/time_scale_data.csv', rowConverter).then(data => {
     .domain([d3.min(dataset, d => d.Amount), d3.max(dataset, d => d.Amount)])
     .range([h - padding, padding]);
 
+  const xAxis = d3
+    .axisBottom()
+    .scale(xScale)
+    .ticks(5);
+
+  const yAxis = d3
+    .axisLeft()
+    .scale(yScale)
+    .ticks(5);
+
   // Create SVG element
   const svg = d3
     .select('body')
@@ -64,4 +74,16 @@ d3.csv('data/time_scale_data.csv', rowConverter).then(data => {
     .attr('cx', d => xScale(d.Date))
     .attr('cy', d => yScale(d.Amount))
     .attr('r', 2);
+
+  svg
+    .append('g')
+    .attr('class', 'axis')
+    .attr('transform', 'translate(0,' + (h - padding) + ')')
+    .call(xAxis);
+
+  svg
+    .append('g')
+    .attr('class', 'axis')
+    .attr('transform', 'translate(' + padding + ',0)')
+    .call(yAxis);
 });
