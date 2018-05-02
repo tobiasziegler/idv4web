@@ -3,18 +3,18 @@ import * as d3 from 'd3';
 // Dynamic, random dataset
 let dataset = [];
 const numDataPoints = 50;
-const xRange = Math.random() * 1000;
-const yRange = Math.random() * 1000;
+const xRange = Math.random();
+const yRange = Math.random();
 for (let i = 0; i < numDataPoints; i++) {
-  const newNumber1 = Math.floor(Math.random() * xRange);
-  const newNumber2 = Math.floor(Math.random() * yRange);
+  const newNumber1 = Math.random() * xRange;
+  const newNumber2 = Math.random() * yRange;
   dataset.push([newNumber1, newNumber2]);
 }
 
 // Width and height
 const w = 500;
 const h = 300;
-const padding = 30;
+const padding = 40;
 
 const xScale = d3
   .scaleLinear()
@@ -40,6 +40,11 @@ const yAxis = d3
   .axisLeft()
   .scale(yScale)
   .ticks(5);
+
+const formatAsPercentage = d3.format('.1%');
+
+xAxis.tickFormat(formatAsPercentage);
+yAxis.tickFormat(formatAsPercentage);
 
 // Create SVG element
 const svg = d3
