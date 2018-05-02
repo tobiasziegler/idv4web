@@ -17,7 +17,7 @@ const dataset = [
 // Width and height
 const w = 500;
 const h = 300;
-const padding = 20;
+const padding = 30;
 
 const xScale = d3
   .scaleLinear()
@@ -37,6 +37,11 @@ const aScale = d3
 const xAxis = d3
   .axisBottom()
   .scale(xScale)
+  .ticks(5);
+
+const yAxis = d3
+  .axisLeft()
+  .scale(yScale)
   .ticks(5);
 
 // Create SVG element
@@ -72,3 +77,9 @@ svg
   .attr('class', 'axis')
   .attr('transform', 'translate(0,' + (h - padding) + ')')
   .call(xAxis);
+
+svg
+  .append('g')
+  .attr('class', 'axis')
+  .attr('transform', 'translate(' + padding + ',0)')
+  .call(yAxis);
