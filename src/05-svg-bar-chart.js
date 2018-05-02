@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-const dataset = [
+let dataset = [
   5,
   10,
   13,
@@ -68,3 +68,42 @@ svg
   .attr('font-size', '11px')
   .attr('fill', 'white')
   .attr('text-anchor', 'middle');
+
+d3.select('p').on('click', () => {
+  dataset = [
+    11,
+    12,
+    15,
+    20,
+    18,
+    17,
+    16,
+    18,
+    23,
+    25,
+    5,
+    10,
+    13,
+    19,
+    21,
+    25,
+    22,
+    18,
+    15,
+    13
+  ];
+
+  svg
+    .selectAll('rect')
+    .data(dataset)
+    .attr('y', d => h - yScale(d))
+    .attr('height', d => yScale(d))
+    .attr('fill', d => 'rgb(0, 0, ' + Math.round(d * 10) + ')');
+
+  svg
+    .selectAll('text')
+    .data(dataset)
+    .text(d => d)
+    .attr('x', (d, i) => xScale(i) + xScale.bandwidth() / 2)
+    .attr('y', d => h - yScale(d) + 14);
+});
