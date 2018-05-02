@@ -67,4 +67,5 @@ svg
 svg
   .append('g')
   .attr('class', 'axis')
+  .attr('transform', 'translate(0,' + (h - padding) + ')')
   .call(xAxis);
