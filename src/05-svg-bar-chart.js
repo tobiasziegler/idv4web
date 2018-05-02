@@ -97,6 +97,7 @@ d3.select('p').on('click', () => {
     .selectAll('rect')
     .data(dataset)
     .transition()
+    .duration(1000)
     .attr('y', d => h - yScale(d))
     .attr('height', d => yScale(d))
     .attr('fill', d => 'rgb(0, 0, ' + Math.round(d * 10) + ')');
