@@ -96,5 +96,6 @@ d3.select('p').on('click', () => {
     .duration(500)
     .text(d => d)
     .attr('x', (d, i) => xScale(i) + xScale.bandwidth() / 2)
-    .attr('y', d => h - yScale(d) + 14);
+    .attr('y', d => (d > 1 ? h - yScale(d) + 14 : h - yScale(d) - 3))
+    .attr('fill', d => (d > 1 ? 'white' : 'black'));
 });
