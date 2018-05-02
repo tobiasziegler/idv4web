@@ -1,18 +1,15 @@
 import * as d3 from 'd3';
 
-const dataset = [
-  [5, 20],
-  [480, 90],
-  [250, 50],
-  [100, 33],
-  [330, 95],
-  [410, 12],
-  [475, 44],
-  [25, 67],
-  [85, 21],
-  [220, 88],
-  [600, 150]
-];
+// Dynamic, random dataset
+let dataset = [];
+const numDataPoints = 50;
+const xRange = Math.random() * 1000;
+const yRange = Math.random() * 1000;
+for (let i = 0; i < numDataPoints; i++) {
+  const newNumber1 = Math.floor(Math.random() * xRange);
+  const newNumber2 = Math.floor(Math.random() * yRange);
+  dataset.push([newNumber1, newNumber2]);
+}
 
 // Width and height
 const w = 500;
