@@ -58,18 +58,6 @@ svg
   .attr('r', d => aScale(d[1]));
 
 svg
-  .selectAll('text')
-  .data(dataset)
-  .enter()
-  .append('text')
-  .text(d => d[0] + ',' + d[1])
-  .attr('x', d => xScale(d[0]))
-  .attr('y', d => yScale(d[1]))
-  .attr('font-family', 'sans-serif')
-  .attr('font-size', '11px')
-  .attr('fill', 'red');
-
-svg
   .append('g')
   .attr('class', 'axis')
   .attr('transform', 'translate(0,' + (h - padding) + ')')
