@@ -73,10 +73,14 @@ d3.select('p').on('click', () => {
   // New values for dataset
   const numValues = dataset.length; // Count original length of dataset
   dataset = []; // Initialize empty array
+  const maxValue = 100;
   for (let i = 0; i < numValues; i++) {
-    const newNumber = Math.floor(Math.random() * 25); // New random integer (0-24)
+    const newNumber = Math.floor(Math.random() * maxValue); // New random integer
     dataset.push(newNumber); // Add new number to array
   }
+
+  // Update scale domain
+  yScale.domain([0, d3.max(dataset)]);
 
   svg
     .selectAll('rect')
@@ -96,6 +100,6 @@ d3.select('p').on('click', () => {
     .duration(500)
     .text(d => d)
     .attr('x', (d, i) => xScale(i) + xScale.bandwidth() / 2)
-    .attr('y', d => (d > 1 ? h - yScale(d) + 14 : h - yScale(d) - 3))
-    .attr('fill', d => (d > 1 ? 'white' : 'black'));
+    .attr('y', d => (d > 7 ? h - yScale(d) + 14 : h - yScale(d) - 3))
+    .attr('fill', d => (d > 7 ? 'white' : 'black'));
 });
