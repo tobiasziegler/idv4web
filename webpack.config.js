@@ -1,5 +1,6 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -51,7 +52,13 @@ module.exports = {
       filename: '06-scatterplot.html',
       template: __dirname + '/public/06-scatterplot.html',
       chunks: ['scatterplot']
-    })
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: __dirname + '/public/data',
+        to: __dirname + '/dist/data'
+      }
+    ])
   ],
   module: {
     rules: [
