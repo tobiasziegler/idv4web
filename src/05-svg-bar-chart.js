@@ -105,6 +105,8 @@ d3.select('p').on('click', () => {
   svg
     .selectAll('text')
     .data(dataset)
+    .transition()
+    .duration(1000)
     .text(d => d)
     .attr('x', (d, i) => xScale(i) + xScale.bandwidth() / 2)
     .attr('y', d => h - yScale(d) + 14);
