@@ -11,7 +11,7 @@ let dataset, xScale, yScale; // Empty, for now
 const parseTime = d3.timeParse('%m/%d/%y');
 
 // For converting Dates to strings
-const formatTime = d3.timeFormat('%b %e');
+const formatTime = d3.timeFormat('%e');
 
 // Function for converting CSV values from strings to Dates and numbers
 const rowConverter = d => ({
@@ -24,26 +24,31 @@ d3.csv('data/time_scale_data.csv', rowConverter).then(data => {
   // Copy data into global dataset
   dataset = data;
 
+  // Discover start and end dates in dataset
+  const startDate = d3.min(dataset, d => d.Date);
+  const endDate = d3.max(dataset, d => d.Date);
+
   // Create scale functions
   xScale = d3
     .scaleTime()
-    .domain([d3.min(dataset, d => d.Date), d3.max(dataset, d => d.Date)])
+    .domain([d3.timeDay.offset(startDate, -1), d3.timeDay.offset(endDate, 1)])
     .range([padding, w - padding]);
 
   yScale = d3
     .scaleLinear()
-    .domain([d3.min(dataset, d => d.Amount), d3.max(dataset, d => d.Amount)])
+    .domain([0, d3.max(dataset, d => d.Amount)])
     .range([h - padding, padding]);
 
   const xAxis = d3
     .axisBottom()
     .scale(xScale)
-    .ticks(5);
+    .ticks(9)
+    .tickFormat(formatTime);
 
   const yAxis = d3
     .axisLeft()
     .scale(yScale)
-    .ticks(5);
+    .ticks(10);
 
   // Create SVG element
   const svg = d3
@@ -52,18 +57,19 @@ d3.csv('data/time_scale_data.csv', rowConverter).then(data => {
     .attr('width', w)
     .attr('height', h);
 
-  // Generate date labels first, so they are in back
+  // Generate guide lines
   svg
-    .selectAll('text')
+    .selectAll('line')
     .data(dataset)
     .enter()
-    .append('text')
+    .append('line')
     .text(d => formatTime(d.Date))
-    .attr('x', d => xScale(d.Date) + 4)
-    .attr('y', d => yScale(d.Amount) + 4)
-    .attr('font-family', 'sans-serif')
-    .attr('font-size', '11px')
-    .attr('fill', '#bbb');
+    .attr('x1', d => xScale(d.Date))
+    .attr('x2', d => xScale(d.Date))
+    .attr('y1', h - padding)
+    .attr('y2', d => yScale(d.Amount))
+    .attr('stroke', '#ddd')
+    .attr('stroke-width', '1');
 
   // Generate circles last, so they appear in front
   svg
