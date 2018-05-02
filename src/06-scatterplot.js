@@ -64,4 +64,7 @@ svg
   .attr('font-size', '11px')
   .attr('fill', 'red');
 
-svg.append('g').call(xAxis);
+svg
+  .append('g')
+  .attr('class', 'axis')
+  .call(xAxis);
