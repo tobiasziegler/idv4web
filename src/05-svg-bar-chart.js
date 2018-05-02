@@ -97,7 +97,8 @@ d3.select('p').on('click', () => {
     .selectAll('rect')
     .data(dataset)
     .transition()
-    .duration(1000)
+    .delay((d, i) => i * 100)
+    .duration(500)
     .attr('y', d => h - yScale(d))
     .attr('height', d => yScale(d))
     .attr('fill', d => 'rgb(0, 0, ' + Math.round(d * 10) + ')');
@@ -106,7 +107,8 @@ d3.select('p').on('click', () => {
     .selectAll('text')
     .data(dataset)
     .transition()
-    .duration(1000)
+    .delay((d, i) => i * 100)
+    .duration(500)
     .text(d => d)
     .attr('x', (d, i) => xScale(i) + xScale.bandwidth() / 2)
     .attr('y', d => h - yScale(d) + 14);
