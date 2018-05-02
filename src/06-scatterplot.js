@@ -34,7 +34,10 @@ const aScale = d3
   .domain([0, d3.max(dataset, d => d[1])])
   .range([0, 10]);
 
-const xAxis = d3.axisBottom().scale(xScale);
+const xAxis = d3
+  .axisBottom()
+  .scale(xScale)
+  .ticks(5);
 
 // Create SVG element
 const svg = d3
