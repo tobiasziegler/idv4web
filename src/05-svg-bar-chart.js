@@ -71,9 +71,21 @@ svg
   .attr('fill', d => (d.value > 1 ? 'white' : 'black'))
   .attr('text-anchor', 'middle');
 
-d3.select('p').on('click', () => {
-  // Remove one value from the dataset
-  dataset.shift();
+d3.selectAll('p').on('click', function() {
+  // See which p was clicked
+  const paragraphId = d3.select(this).attr('id');
+
+  // Decide what to do next
+  if (paragraphId == 'add') {
+    // Add a data value
+    const maxValue = 25;
+    const newValue = Math.floor(Math.random() * maxValue);
+    const lastKeyValue = dataset[dataset.length - 1].key;
+    dataset.push({ key: lastKeyValue + 1, value: newValue });
+  } else {
+    // Remove one value from the dataset
+    dataset.shift();
+  }
 
   // Update scale domains
   xScale.domain(d3.range(dataset.length));
