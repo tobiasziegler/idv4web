@@ -66,40 +66,57 @@ svg
   .attr('y', d => h - yScale(d) + 14)
   .attr('font-family', 'sans-serif')
   .attr('font-size', '11px')
-  .attr('fill', 'white')
+  .attr('fill', d => (d > 1 ? 'white' : 'black'))
   .attr('text-anchor', 'middle');
 
 d3.select('p').on('click', () => {
-  // New values for dataset
-  const numValues = dataset.length; // Count original length of dataset
-  dataset = []; // Initialize empty array
-  const maxValue = 100;
-  for (let i = 0; i < numValues; i++) {
-    const newNumber = Math.floor(Math.random() * maxValue); // New random integer
-    dataset.push(newNumber); // Add new number to array
-  }
+  // Add one new value to the dataset
+  const maxValue = 25;
+  const newNumber = Math.floor(Math.random() * maxValue); // New random integer
+  dataset.push(newNumber);
 
-  // Update scale domain
+  // Update scale domains
+  xScale.domain(d3.range(dataset.length));
   yScale.domain([0, d3.max(dataset)]);
 
-  svg
-    .selectAll('rect')
-    .data(dataset)
-    .transition()
-    .delay((d, i) => i / dataset.length * 1000)
-    .duration(500)
-    .attr('y', d => h - yScale(d))
-    .attr('height', d => yScale(d))
-    .attr('fill', d => 'rgb(0, 0, ' + Math.round(d * 10) + ')');
+  // Select...
+  const bars = svg.selectAll('rect').data(dataset);
 
-  svg
-    .selectAll('text')
-    .data(dataset)
+  // Enter...
+  bars
+    .enter()
+    .append('rect')
+    .attr('x', w)
+    .attr('y', d => h - yScale(d))
+    .attr('width', xScale.bandwidth())
+    .attr('height', d => yScale(d))
+    .attr('fill', d => 'rgb(0, 0, ' + Math.round(d * 10) + ')')
+    .merge(bars)
     .transition()
-    .delay((d, i) => i / dataset.length * 1000)
+    .duration(500)
+    .attr('x', (d, i) => xScale(i))
+    .attr('y', d => h - yScale(d))
+    .attr('width', xScale.bandwidth())
+    .attr('height', d => yScale(d));
+
+  // Select...
+  const labels = svg.selectAll('text').data(dataset);
+
+  // Enter...
+  labels
+    .enter()
+    .append('text')
+    .attr('x', w + xScale.bandwidth() / 2)
+    .attr('y', d => (d > 7 ? h - yScale(d) + 14 : h - yScale(d) - 3))
+    .attr('fill', d => (d > 1 ? 'white' : 'black'))
+    .merge(labels)
+    .transition()
     .duration(500)
     .text(d => d)
     .attr('x', (d, i) => xScale(i) + xScale.bandwidth() / 2)
-    .attr('y', d => (d > 7 ? h - yScale(d) + 14 : h - yScale(d) - 3))
-    .attr('fill', d => (d > 7 ? 'white' : 'black'));
+    .attr('y', d => (d > 1 ? h - yScale(d) + 14 : h - yScale(d) - 3))
+    .attr('fill', d => (d > 1 ? 'white' : 'black'))
+    .attr('font-family', 'sans-serif')
+    .attr('font-size', '11px')
+    .attr('text-anchor', 'middle');
 });
