@@ -104,14 +104,10 @@ d3.select('p').on('click', () => {
     })
     .attr('cx', d => xScale(d[0]))
     .attr('cy', d => yScale(d[1]))
-    .on('end', function() {
-      d3
-        .select(this)
-        .transition()
-        .duration(1000)
-        .attr('fill', 'black')
-        .attr('r', 2);
-    });
+    .transition()
+    .duration(1000)
+    .attr('fill', 'black')
+    .attr('r', 2);
 
   // Update x-axis
   svg
