@@ -3,8 +3,8 @@ import * as d3 from 'd3';
 // Dynamic, random dataset
 let dataset = [];
 const numDataPoints = 50;
-const xRange = Math.random();
-const yRange = Math.random();
+let xRange = Math.random();
+let yRange = Math.random();
 for (let i = 0; i < numDataPoints; i++) {
   const newNumber1 = Math.random() * xRange;
   const newNumber2 = Math.random() * yRange;
@@ -64,12 +64,52 @@ svg
 
 svg
   .append('g')
-  .attr('class', 'axis')
+  .attr('class', 'x axis')
   .attr('transform', 'translate(0,' + (h - padding) + ')')
   .call(xAxis);
 
 svg
   .append('g')
-  .attr('class', 'axis')
+  .attr('class', 'y axis')
   .attr('transform', 'translate(' + padding + ',0)')
   .call(yAxis);
+
+// On click, update with new data
+d3.select('p').on('click', () => {
+  // New values for dataset
+  xRange = Math.random();
+  yRange = Math.random();
+  dataset = [];
+  for (let i = 0; i < numDataPoints; i++) {
+    const newNumber1 = Math.random() * xRange;
+    const newNumber2 = Math.random() * yRange;
+    dataset.push([newNumber1, newNumber2]);
+  }
+
+  // Update scale domains
+  xScale.domain([0, d3.max(dataset, d => d[0])]);
+  yScale.domain([0, d3.max(dataset, d => d[1])]);
+
+  // Update all circles
+  svg
+    .selectAll('circle')
+    .data(dataset)
+    .transition()
+    .duration(1000)
+    .attr('cx', d => xScale(d[0]))
+    .attr('cy', d => yScale(d[1]));
+
+  // Update x-axis
+  svg
+    .select('.x.axis')
+    .transition()
+    .duration(1000)
+    .call(xAxis);
+
+  // Update y-axis
+  svg
+    .select('.y.axis')
+    .transition()
+    .duration(1000)
+    .call(yAxis);
+});
