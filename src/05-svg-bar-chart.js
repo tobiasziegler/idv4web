@@ -70,10 +70,8 @@ svg
   .attr('text-anchor', 'middle');
 
 d3.select('p').on('click', () => {
-  // Add one new value to the dataset
-  const maxValue = 25;
-  const newNumber = Math.floor(Math.random() * maxValue); // New random integer
-  dataset.push(newNumber);
+  // Remove one value from the dataset
+  dataset.shift();
 
   // Update scale domains
   xScale.domain(d3.range(dataset.length));
@@ -99,6 +97,14 @@ d3.select('p').on('click', () => {
     .attr('width', xScale.bandwidth())
     .attr('height', d => yScale(d));
 
+  // Exit
+  bars
+    .exit()
+    .transition()
+    .duration(500)
+    .attr('x', w)
+    .remove();
+
   // Select...
   const labels = svg.selectAll('text').data(dataset);
 
@@ -119,4 +125,12 @@ d3.select('p').on('click', () => {
     .attr('font-family', 'sans-serif')
     .attr('font-size', '11px')
     .attr('text-anchor', 'middle');
+
+  // Exit...
+  labels
+    .exit()
+    .transition()
+    .duration(500)
+    .attr('x', w + xScale.bandwidth() / 2)
+    .remove();
 });
