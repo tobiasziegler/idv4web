@@ -100,13 +100,15 @@ d3.select('p').on('click', () => {
       d3
         .select(this)
         .attr('fill', 'magenta')
-        .attr('r', 3);
+        .attr('r', 7);
     })
     .attr('cx', d => xScale(d[0]))
     .attr('cy', d => yScale(d[1]))
     .on('end', function() {
       d3
         .select(this)
+        .transition()
+        .duration(1000)
         .attr('fill', 'black')
         .attr('r', 2);
     });
