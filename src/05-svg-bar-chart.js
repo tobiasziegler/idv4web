@@ -129,7 +129,7 @@ d3.selectAll('p').on('click', function() {
     .attr('x', w + xScale.bandwidth() / 2)
     .attr(
       'y',
-      d => (d.value > 7 ? h - yScale(d.value) + 14 : h - yScale(d.value) - 3)
+      d => (d.value > 1 ? h - yScale(d.value) + 14 : h - yScale(d.value) - 3)
     )
     .attr('fill', d => (d.value > 1 ? 'white' : 'black'))
     .merge(labels)
