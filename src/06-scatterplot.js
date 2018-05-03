@@ -53,7 +53,20 @@ const svg = d3
   .attr('width', w)
   .attr('height', h);
 
+// Define clipping path
 svg
+  .append('clipPath')
+  .attr('id', 'chart-area')
+  .append('rect')
+  .attr('x', padding)
+  .attr('y', padding)
+  .attr('width', w - padding * 3)
+  .attr('height', h - padding * 2);
+
+svg
+  .append('g')
+  .attr('id', 'circles')
+  .attr('clip-path', 'url(#chart-area)')
   .selectAll('circle')
   .data(dataset)
   .enter()
