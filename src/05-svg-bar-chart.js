@@ -95,7 +95,8 @@ d3.select('p').on('click', () => {
     .attr('x', (d, i) => xScale(i))
     .attr('y', d => h - yScale(d))
     .attr('width', xScale.bandwidth())
-    .attr('height', d => yScale(d));
+    .attr('height', d => yScale(d))
+    .attr('fill', d => 'rgb(0, 0, ' + Math.round(d * 10) + ')');
 
   // Exit
   bars
