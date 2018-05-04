@@ -59,10 +59,18 @@ svg
   .attr('height', d => yScale(d.value))
   .attr('fill', d => 'rgb(0, 0, ' + Math.round(d.value * 10) + ')')
   .on('mouseover', function() {
-    d3.select(this).attr('fill', 'orange');
+    d3
+      .select(this)
+      .transition()
+      .duration(250)
+      .attr('fill', 'orange');
   })
   .on('mouseout', function() {
-    d3.select(this).attr('fill', d => 'rgb(0,0,' + d.value * 10 + ')');
+    d3
+      .select(this)
+      .transition()
+      .duration(250)
+      .attr('fill', d => 'rgb(0,0,' + d.value * 10 + ')');
   });
 
 svg
@@ -76,7 +84,8 @@ svg
   .attr('font-family', 'sans-serif')
   .attr('font-size', '11px')
   .attr('fill', d => (d.value > 1 ? 'white' : 'black'))
-  .attr('text-anchor', 'middle');
+  .attr('text-anchor', 'middle')
+  .style('pointer-events', 'none');
 
 d3.selectAll('p').on('click', function() {
   // See which p was clicked
