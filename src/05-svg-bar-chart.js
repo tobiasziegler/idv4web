@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import './05-svg-bar-chart.css';
 
 let dataset = [
   { key: 0, value: 5 },
