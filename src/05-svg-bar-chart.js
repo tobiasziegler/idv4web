@@ -71,7 +71,8 @@ svg
       .transition()
       .duration(250)
       .attr('fill', d => 'rgb(0,0,' + d.value * 10 + ')');
-  });
+  })
+  .on('click', () => sortBars());
 
 svg
   .selectAll('text')
@@ -170,3 +171,11 @@ d3.selectAll('p').on('click', function() {
     .attr('x', -xScale.bandwidth() / 2)
     .remove();
 });
+
+const sortBars = () =>
+  svg
+    .selectAll('rect')
+    .sort((a, b) => d3.ascending(a.value, b.value))
+    .transition()
+    .duration(1000)
+    .attr('x', (d, i) => xScale(i));
