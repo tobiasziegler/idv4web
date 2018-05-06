@@ -158,17 +158,34 @@ d3.selectAll('p').on('click', function() {
     .remove();
 });
 
+// Define sort order flag
+let sortOrder = false;
+
+// Define sort order function
 const sortBars = () => {
+  // Flip value of sortOrder
+  sortOrder = !sortOrder;
+
   svg
     .selectAll('rect')
-    .sort((a, b) => d3.ascending(a.value, b.value))
+    .sort(
+      (a, b) =>
+        sortOrder
+          ? d3.ascending(a.value, b.value)
+          : d3.descending(a.value, b.value)
+    )
     .transition()
     .duration(1000)
     .attr('x', (d, i) => xScale(i));
 
   svg
     .selectAll('text')
-    .sort((a, b) => d3.ascending(a.value, b.value))
+    .sort(
+      (a, b) =>
+        sortOrder
+          ? d3.ascending(a.value, b.value)
+          : d3.descending(a.value, b.value)
+    )
     .transition()
     .duration(1000)
     .attr('x', (d, i) => xScale(i) + xScale.bandwidth() / 2);
