@@ -175,6 +175,7 @@ const sortBars = () => {
           : d3.descending(a.value, b.value)
     )
     .transition()
+    .delay((d, i) => i * 50)
     .duration(1000)
     .attr('x', (d, i) => xScale(i));
 
@@ -187,6 +188,7 @@ const sortBars = () => {
           : d3.descending(a.value, b.value)
     )
     .transition()
+    .delay((d, i) => i * 50)
     .duration(1000)
     .attr('x', (d, i) => xScale(i) + xScale.bandwidth() / 2);
 };
