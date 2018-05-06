@@ -58,21 +58,9 @@ svg
   .attr('width', xScale.bandwidth())
   .attr('height', d => yScale(d.value))
   .attr('fill', d => 'rgb(0, 0, ' + Math.round(d.value * 10) + ')')
-  .on('click', () => sortBars());
-
-svg
-  .selectAll('text')
-  .data(dataset, key)
-  .enter()
-  .append('text')
-  .text(d => d.value)
-  .attr('x', (d, i) => xScale(i) + xScale.bandwidth() / 2)
-  .attr('y', d => h - yScale(d.value) + 14)
-  .attr('font-family', 'sans-serif')
-  .attr('font-size', '11px')
-  .attr('fill', d => (d.value > 1 ? 'white' : 'black'))
-  .attr('text-anchor', 'middle')
-  .style('pointer-events', 'none');
+  .on('click', () => sortBars())
+  .append('title')
+  .text(d => d.value);
 
 d3.selectAll('p').on('click', function() {
   // See which p was clicked
@@ -121,41 +109,6 @@ d3.selectAll('p').on('click', function() {
     .duration(500)
     .attr('x', -xScale.bandwidth())
     .remove();
-
-  // Select...
-  const labels = svg.selectAll('text').data(dataset, key);
-
-  // Enter...
-  labels
-    .enter()
-    .append('text')
-    .attr('x', w + xScale.bandwidth() / 2)
-    .attr(
-      'y',
-      d => (d.value > 1 ? h - yScale(d.value) + 14 : h - yScale(d.value) - 3)
-    )
-    .attr('fill', d => (d.value > 1 ? 'white' : 'black'))
-    .merge(labels) // Update...
-    .transition()
-    .duration(500)
-    .text(d => d.value)
-    .attr('x', (d, i) => xScale(i) + xScale.bandwidth() / 2)
-    .attr(
-      'y',
-      d => (d.value > 1 ? h - yScale(d.value) + 14 : h - yScale(d.value) - 3)
-    )
-    .attr('fill', d => (d.value > 1 ? 'white' : 'black'))
-    .attr('font-family', 'sans-serif')
-    .attr('font-size', '11px')
-    .attr('text-anchor', 'middle');
-
-  // Exit...
-  labels
-    .exit()
-    .transition()
-    .duration(500)
-    .attr('x', -xScale.bandwidth() / 2)
-    .remove();
 });
 
 // Define sort order flag
@@ -178,17 +131,4 @@ const sortBars = () => {
     .delay((d, i) => i * 50)
     .duration(1000)
     .attr('x', (d, i) => xScale(i));
-
-  svg
-    .selectAll('text')
-    .sort(
-      (a, b) =>
-        sortOrder
-          ? d3.ascending(a.value, b.value)
-          : d3.descending(a.value, b.value)
-    )
-    .transition()
-    .delay((d, i) => i * 50)
-    .duration(1000)
-    .attr('x', (d, i) => xScale(i) + xScale.bandwidth() / 2);
 };
