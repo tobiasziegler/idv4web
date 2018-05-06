@@ -172,10 +172,18 @@ d3.selectAll('p').on('click', function() {
     .remove();
 });
 
-const sortBars = () =>
+const sortBars = () => {
   svg
     .selectAll('rect')
     .sort((a, b) => d3.ascending(a.value, b.value))
     .transition()
     .duration(1000)
     .attr('x', (d, i) => xScale(i));
+
+  svg
+    .selectAll('text')
+    .sort((a, b) => d3.ascending(a.value, b.value))
+    .transition()
+    .duration(1000)
+    .attr('x', (d, i) => xScale(i) + xScale.bandwidth() / 2);
+};
