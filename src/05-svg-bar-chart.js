@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-// import './05-svg-bar-chart.css'; // CSS hover effect replaced by JS/D3
+import './05-svg-bar-chart.css';
 
 let dataset = [
   { key: 0, value: 5 },
@@ -58,20 +58,6 @@ svg
   .attr('width', xScale.bandwidth())
   .attr('height', d => yScale(d.value))
   .attr('fill', d => 'rgb(0, 0, ' + Math.round(d.value * 10) + ')')
-  .on('mouseover', function() {
-    d3
-      .select(this)
-      .transition()
-      .duration(250)
-      .attr('fill', 'orange');
-  })
-  .on('mouseout', function() {
-    d3
-      .select(this)
-      .transition()
-      .duration(250)
-      .attr('fill', d => 'rgb(0,0,' + d.value * 10 + ')');
-  })
   .on('click', () => sortBars());
 
 svg
