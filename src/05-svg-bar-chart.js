@@ -119,7 +119,7 @@ d3.selectAll('p').on('click', function() {
     .attr('width', xScale.bandwidth())
     .attr('height', d => yScale(d.value))
     .attr('fill', d => 'rgb(0, 0, ' + Math.round(d.value * 10) + ')')
-    .merge(bars)
+    .merge(bars) // Update...
     .transition()
     .duration(500)
     .attr('x', (d, i) => xScale(i))
@@ -148,7 +148,7 @@ d3.selectAll('p').on('click', function() {
       d => (d.value > 1 ? h - yScale(d.value) + 14 : h - yScale(d.value) - 3)
     )
     .attr('fill', d => (d.value > 1 ? 'white' : 'black'))
-    .merge(labels)
+    .merge(labels) // Update...
     .transition()
     .duration(500)
     .text(d => d.value)
