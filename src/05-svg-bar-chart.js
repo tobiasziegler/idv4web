@@ -62,22 +62,20 @@ svg
     // Get this bar's x/y values, then augment for the tooltip
     const xPosition =
       parseFloat(d3.select(this).attr('x')) + xScale.bandwidth() / 2;
-    const yPosition = parseFloat(d3.select(this).attr('y')) + 14;
+    const yPosition = parseFloat(d3.select(this).attr('y')) / 2 + h / 2;
 
-    // Create the tooltip label
-    svg
-      .append('text')
-      .attr('id', 'tooltip')
-      .attr('x', xPosition)
-      .attr('y', yPosition)
-      .attr('text-anchor', 'middle')
-      .attr('fill', 'white')
-      .attr('font-family', 'sans-serif')
-      .attr('font-size', '11px')
-      .attr('font-weight', 'bold')
+    // Update the tooltip position and value
+    d3
+      .select('#tooltip')
+      .style('left', xPosition + 'px')
+      .style('top', yPosition + 'px')
+      .select('#value')
       .text(d.value);
+
+    // Show the tooltip
+    d3.select('#tooltip').classed('hidden', false);
   })
-  .on('mouseout', () => d3.select('#tooltip').remove())
+  .on('mouseout', () => d3.select('#tooltip').classed('hidden', true))
   .on('click', () => sortBars());
 
 d3.selectAll('p').on('click', function() {
