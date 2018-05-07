@@ -67,6 +67,15 @@ d3.csv('data/mauna_loa_co2_monthly_averages.csv', rowConverter).then(data => {
     .attr('width', w)
     .attr('height', h);
 
+  //Draw 350 ppm line
+  svg
+    .append('line')
+    .attr('class', 'line safeLevel')
+    .attr('x1', padding)
+    .attr('x2', w)
+    .attr('y1', yScale(350))
+    .attr('y2', yScale(350));
+
   // Create line
   svg
     .append('path')
