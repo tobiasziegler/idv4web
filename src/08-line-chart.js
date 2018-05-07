@@ -53,10 +53,15 @@ d3.csv('data/mauna_loa_co2_monthly_averages.csv', rowConverter).then(data => {
     .scale(yScale)
     .ticks(10);
 
-  // Define line generator
+  // Define line generators
   const line = d3
     .line()
-    .defined(d => d.average >= 0)
+    .defined(d => d.average >= 0 && d.average <= 350)
+    .x(d => xScale(d.date))
+    .y(d => yScale(d.average));
+  const dangerLine = d3
+    .line()
+    .defined(d => d.average >= 350)
     .x(d => xScale(d.date))
     .y(d => yScale(d.average));
 
@@ -76,12 +81,25 @@ d3.csv('data/mauna_loa_co2_monthly_averages.csv', rowConverter).then(data => {
     .attr('y1', yScale(350))
     .attr('y2', yScale(350));
 
-  // Create line
+  // Label 350 ppm line
+  svg
+    .append('text')
+    .attr('class', 'dangerLabel')
+    .attr('x', padding + 20)
+    .attr('y', yScale(350) - 7)
+    .text('350 ppm “safe” level');
+
+  // Create lines
   svg
     .append('path')
     .datum(dataset)
     .attr('class', 'line')
     .attr('d', line);
+  svg
+    .append('path')
+    .datum(dataset)
+    .attr('class', 'line danger')
+    .attr('d', dangerLine);
 
   //Create axes
   svg
