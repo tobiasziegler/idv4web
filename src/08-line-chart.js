@@ -37,6 +37,7 @@ d3.csv('data/mauna_loa_co2_monthly_averages.csv', rowConverter).then(data => {
   // Define line generator
   const line = d3
     .line()
+    .defined(d => d.average >= 0)
     .x(d => xScale(d.date))
     .y(d => yScale(d.average));
 
