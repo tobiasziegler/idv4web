@@ -34,7 +34,10 @@ d3.csv('data/mauna_loa_co2_monthly_averages.csv', rowConverter).then(data => {
 
   const yScale = d3
     .scaleLinear()
-    .domain([0, d3.max(dataset, d => d.average)])
+    .domain([
+      d3.min(dataset, d => (d.average >= 0 ? d.average - 10 : undefined)) - 10,
+      d3.max(dataset, d => d.average)
+    ])
     .range([h - padding, 0]);
 
   //Define axes
