@@ -14,7 +14,8 @@ module.exports = {
     scatterplot: './src/06-scatterplot.js',
     time_scale: './src/07-time-scale.js',
     line_chart: './src/08-line-chart.js',
-    area_chart: './src/09-area-chart.js'
+    area_chart: './src/09-area-chart.js',
+    freakout: './src/10-freakout.js'
   },
   output: {
     filename: '[name].bundle.js',
@@ -70,6 +71,11 @@ module.exports = {
       filename: '09-area-chart.html',
       template: __dirname + '/public/09-area-chart.html',
       chunks: ['area_chart']
+    }),
+    new HtmlWebpackPlugin({
+      filename: '10-freakout.html',
+      template: __dirname + '/public/10-freakout.html',
+      chunks: ['freakout']
     }),
     new CopyWebpackPlugin([
       {
