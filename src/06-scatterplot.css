@@ -1,0 +1,8 @@
+p {
+  font-family: Helvetica, sans-serif;
+  font-size: 12px;
+}
+
+input[type='radio'] {
+  margin-left: 40px;
+}

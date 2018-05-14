@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import './06-scatterplot.css';
 
 // Dynamic, random dataset
 let dataset = [];
@@ -63,7 +64,7 @@ svg
   .attr('width', w - padding * 3)
   .attr('height', h - padding * 2);
 
-svg
+const allCircles = svg
   .append('g')
   .attr('id', 'circles')
   .attr('clip-path', 'url(#chart-area)')
@@ -135,4 +136,14 @@ d3.select('p').on('click', () => {
     .transition()
     .duration(1000)
     .call(yAxis);
+});
+
+//On radio button change, update styling
+d3.selectAll('input').on('click', function() {
+  const threshold = +d3.select(this).node().value;
+
+  allCircles
+    .attr('fill', 'black')
+    .filter(d => d[0] <= threshold)
+    .attr('fill', 'red');
 });
