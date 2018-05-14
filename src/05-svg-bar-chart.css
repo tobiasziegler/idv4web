@@ -1,3 +1,11 @@
+input {
+  height: 250px;
+  width: 30px;
+  /* Orient vertically */
+  -webkit-appearance: slider-vertical;
+  writing-mode: bt-lr;
+}
+
 rect {
   -moz-transition: all 0.25s;
   -o-transition: all 0.25s;

@@ -89,7 +89,7 @@ d3.selectAll('p').on('click', function() {
     const newValue = Math.floor(Math.random() * maxValue);
     const lastKeyValue = dataset[dataset.length - 1].key;
     dataset.push({ key: lastKeyValue + 1, value: newValue });
-  } else {
+  } else if (paragraphId == 'remove') {
     // Remove one value from the dataset
     dataset.shift();
   }
@@ -148,3 +148,14 @@ const sortBars = () => {
     .duration(1000)
     .attr('x', (d, i) => xScale(i));
 };
+
+// On change, update styling
+d3.select('input').on('change', function() {
+  const threshold = +d3.select(this).node().value;
+
+  svg
+    .selectAll('rect')
+    .attr('fill', d => 'rgb(0, 0, ' + d.value * 10 + ')')
+    .filter(d => d.value <= threshold)
+    .attr('fill', 'red');
+});
