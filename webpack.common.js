@@ -96,9 +96,5 @@ module.exports = {
         use: ['style-loader', 'css-loader']
       }
     ]
-  },
-  devServer: {
-    open: true,
-    overlay: true
   }
 };
