@@ -13,7 +13,8 @@ module.exports = {
     svg_bar_chart: './src/05-svg-bar-chart.js',
     scatterplot: './src/06-scatterplot.js',
     time_scale: './src/07-time-scale.js',
-    line_chart: './src/08-line-chart.js'
+    line_chart: './src/08-line-chart.js',
+    area_chart: './src/09-area-chart.js'
   },
   output: {
     filename: '[name].bundle.js',
@@ -64,6 +65,11 @@ module.exports = {
       filename: '08-line-chart.html',
       template: __dirname + '/public/08-line-chart.html',
       chunks: ['line_chart']
+    }),
+    new HtmlWebpackPlugin({
+      filename: '09-area-chart.html',
+      template: __dirname + '/public/09-area-chart.html',
+      chunks: ['area_chart']
     }),
     new CopyWebpackPlugin([
       {
