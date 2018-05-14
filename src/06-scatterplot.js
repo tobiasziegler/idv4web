@@ -4,11 +4,9 @@ import './06-scatterplot.css';
 // Dynamic, random dataset
 let dataset = [];
 const numDataPoints = 50;
-let xRange = Math.random();
-let yRange = Math.random();
 for (let i = 0; i < numDataPoints; i++) {
-  const newNumber1 = Math.random() * xRange;
-  const newNumber2 = Math.random() * yRange;
+  const newNumber1 = Math.random();
+  const newNumber2 = Math.random();
   dataset.push([newNumber1, newNumber2]);
 }
 
@@ -19,12 +17,12 @@ const padding = 40;
 
 const xScale = d3
   .scaleLinear()
-  .domain([0, d3.max(dataset, d => d[0])])
+  .domain([0, 1])
   .range([padding, w - padding * 2]);
 
 const yScale = d3
   .scaleLinear()
-  .domain([0, d3.max(dataset, d => d[1])])
+  .domain([0, 1])
   .range([h - padding, padding]);
 
 const aScale = d3
@@ -91,18 +89,12 @@ svg
 // On click, update with new data
 d3.select('p').on('click', () => {
   // New values for dataset
-  xRange = Math.random();
-  yRange = Math.random();
   dataset = [];
   for (let i = 0; i < numDataPoints; i++) {
-    const newNumber1 = Math.random() * xRange;
-    const newNumber2 = Math.random() * yRange;
+    const newNumber1 = Math.random();
+    const newNumber2 = Math.random();
     dataset.push([newNumber1, newNumber2]);
   }
-
-  // Update scale domains
-  xScale.domain([0, d3.max(dataset, d => d[0])]);
-  yScale.domain([0, d3.max(dataset, d => d[1])]);
 
   // Update all circles
   svg
@@ -138,12 +130,55 @@ d3.select('p').on('click', () => {
     .call(yAxis);
 });
 
-//On radio button change, update styling
+// On radio button change, update styling
 d3.selectAll('input').on('click', function() {
-  const threshold = +d3.select(this).node().value;
+  const view = d3.select(this).node().value;
+  // Reset all to black
+  allCircles.attr('fill', 'black');
+  const midpoint = 0.5;
+  const colors = d3.schemeCategory10;
+  const distance = 0.3;
+  // Filter and highlight based on different conditions
+  switch (view) {
+    case 'centre':
+      allCircles
+        .filter(
+          d =>
+            Math.abs(midpoint - d[0]) < distance &&
+            Math.abs(midpoint - d[1]) < distance
+        )
+        .attr('fill', colors[1]);
+      break;
+    case 'edges':
+      allCircles
+        .filter(
+          d =>
+            Math.abs(midpoint - d[0]) > distance ||
+            Math.abs(midpoint - d[1]) > distance
+        )
+        .attr('fill', colors[3]);
+      break;
+    case 'quadrants':
+      // Top left
+      allCircles
+        .filter(d => d[0] <= midpoint && d[1] >= midpoint)
+        .attr('fill', colors[0]);
 
-  allCircles
-    .attr('fill', 'black')
-    .filter(d => d[0] <= threshold)
-    .attr('fill', 'red');
+      // Top right
+      allCircles
+        .filter(d => d[0] > midpoint && d[1] >= midpoint)
+        .attr('fill', colors[1]);
+      // Bottom right
+      allCircles
+        .filter(d => d[0] > midpoint && d[1] < midpoint)
+        .attr('fill', colors[2]);
+      // Bottom left
+      allCircles
+        .filter(d => d[0] <= midpoint && d[1] < midpoint)
+        .attr('fill', colors[3]);
+      break;
+    case 'none':
+    default:
+    // Do nothing more
+  }
 });
