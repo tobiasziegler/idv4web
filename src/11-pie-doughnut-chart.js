@@ -7,7 +7,7 @@ const w = 300;
 const h = 300;
 
 const outerRadius = w / 2;
-const innerRadius = 0;
+const innerRadius = w / 3;
 const arc = d3
   .arc()
   .innerRadius(innerRadius)
