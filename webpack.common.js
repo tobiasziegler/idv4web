@@ -21,6 +21,18 @@ module.exports = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        commons: {
+          name: 'commons',
+          chunks: 'initial',
+          minChunks: 2
+        }
+      }
+    }
+  },
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
@@ -30,52 +42,52 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: '01-new-element.html',
       template: __dirname + '/public/01-new-element.html',
-      chunks: ['new_element']
+      chunks: ['commons', 'new_element']
     }),
     new HtmlWebpackPlugin({
       filename: '02-data.html',
       template: __dirname + '/public/02-data.html',
-      chunks: ['data']
+      chunks: ['commons', 'data']
     }),
     new HtmlWebpackPlugin({
       filename: '03-div-bar-chart.html',
       template: __dirname + '/public/03-div-bar-chart.html',
-      chunks: ['div_bar_chart']
+      chunks: ['commons', 'div_bar_chart']
     }),
     new HtmlWebpackPlugin({
       filename: '04-circles.html',
       template: __dirname + '/public/04-circles.html',
-      chunks: ['circles']
+      chunks: ['commons', 'circles']
     }),
     new HtmlWebpackPlugin({
       filename: '05-svg-bar-chart.html',
       template: __dirname + '/public/05-svg-bar-chart.html',
-      chunks: ['svg_bar_chart']
+      chunks: ['commons', 'svg_bar_chart']
     }),
     new HtmlWebpackPlugin({
       filename: '06-scatterplot.html',
       template: __dirname + '/public/06-scatterplot.html',
-      chunks: ['scatterplot']
+      chunks: ['commons', 'scatterplot']
     }),
     new HtmlWebpackPlugin({
       filename: '07-time-scale.html',
       template: __dirname + '/public/07-time-scale.html',
-      chunks: ['time_scale']
+      chunks: ['commons', 'time_scale']
     }),
     new HtmlWebpackPlugin({
       filename: '08-line-chart.html',
       template: __dirname + '/public/08-line-chart.html',
-      chunks: ['line_chart']
+      chunks: ['commons', 'line_chart']
     }),
     new HtmlWebpackPlugin({
       filename: '09-area-chart.html',
       template: __dirname + '/public/09-area-chart.html',
-      chunks: ['area_chart']
+      chunks: ['commons', 'area_chart']
     }),
     new HtmlWebpackPlugin({
       filename: '10-freakout.html',
       template: __dirname + '/public/10-freakout.html',
-      chunks: ['freakout']
+      chunks: ['commons', 'freakout']
     }),
     new CopyWebpackPlugin([
       {
