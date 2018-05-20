@@ -30,7 +30,7 @@ const xScale = d3
 const yScale = d3
   .scaleLinear()
   .domain([0, d3.max(dataset, d => d.apples + d.oranges + d.grapes)])
-  .range([0, h]);
+  .range([h, 0]);
 
 // Easy colors accessible via a 10-step ordinal scale
 const colors = d3.scaleOrdinal(d3.schemeCategory10);
@@ -57,6 +57,6 @@ const rects = groups
   .enter()
   .append('rect')
   .attr('x', (d, i) => xScale(i))
-  .attr('y', d => yScale(d[0]))
-  .attr('height', d => yScale(d[1]) - yScale(d[0]))
+  .attr('y', d => yScale(d[1]))
+  .attr('height', d => yScale(d[0]) - yScale(d[1]))
   .attr('width', xScale.bandwidth());
