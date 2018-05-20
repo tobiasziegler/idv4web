@@ -17,7 +17,8 @@ module.exports = {
     area_chart: './src/09-area-chart.js',
     freakout: './src/10-freakout.js',
     pie_doughnut: './src/11-pie-doughnut-chart.js',
-    stacked_bar_chart: './src/12-stacked-bar-chart.js'
+    stacked_bar_chart: './src/12-stacked-bar-chart.js',
+    stacked_area_chart: './src/13-stacked-area-chart.js'
   },
   output: {
     filename: '[name].bundle.js',
@@ -100,6 +101,11 @@ module.exports = {
       filename: '12-stacked-bar-chart.html',
       template: __dirname + '/public/12-stacked-bar-chart.html',
       chunks: ['commons', 'stacked_bar_chart']
+    }),
+    new HtmlWebpackPlugin({
+      filename: '13-stacked-area-chart.html',
+      template: __dirname + '/public/13-stacked-area-chart.html',
+      chunks: ['commons', 'stacked_area_chart']
     }),
     new CopyWebpackPlugin([
       {

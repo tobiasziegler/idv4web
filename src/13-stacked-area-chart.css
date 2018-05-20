@@ -1,0 +1,11 @@
+h1 {
+  font-family: Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+}
+.area {
+  stroke: none;
+}
+.area:hover {
+  fill: yellow;
+}
