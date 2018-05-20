@@ -12,7 +12,10 @@ const w = 500;
 const h = 300;
 
 // Set up stack method
-const stack = d3.stack().keys(['apples', 'oranges', 'grapes']);
+const stack = d3
+  .stack()
+  .keys(['apples', 'oranges', 'grapes'])
+  .order(d3.stackOrderDescending);
 
 // Data, stacked
 const series = stack(dataset);
