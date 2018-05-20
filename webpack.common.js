@@ -15,7 +15,8 @@ module.exports = {
     time_scale: './src/07-time-scale.js',
     line_chart: './src/08-line-chart.js',
     area_chart: './src/09-area-chart.js',
-    freakout: './src/10-freakout.js'
+    freakout: './src/10-freakout.js',
+    pie_doughnut: './src/11-pie-doughnut-chart.js'
   },
   output: {
     filename: '[name].bundle.js',
@@ -88,6 +89,11 @@ module.exports = {
       filename: '10-freakout.html',
       template: __dirname + '/public/10-freakout.html',
       chunks: ['commons', 'freakout']
+    }),
+    new HtmlWebpackPlugin({
+      filename: '11-pie-doughnut-chart.html',
+      template: __dirname + '/public/11-pie-doughnut-chart.html',
+      chunks: ['commons', 'pie_doughnut']
     }),
     new CopyWebpackPlugin([
       {
