@@ -73,7 +73,14 @@ const nodes = svg
   .enter()
   .append('circle')
   .attr('r', 10)
-  .style('fill', (d, i) => colors(i));
+  .style('fill', (d, i) => colors(i))
+  .call(
+    d3
+      .drag() // Define what to do on drag events
+      .on('start', dragStarted)
+      .on('drag', dragging)
+      .on('end', dragEnded)
+  );
 
 // Add a simple tooltip
 nodes.append('title').text(d => d.name);
@@ -87,3 +94,21 @@ force.on('tick', () => {
     .attr('y2', d => d.target.y);
   nodes.attr('cx', d => d.x).attr('cy', d => d.y);
 });
+
+// Define drag event functions
+function dragStarted(d) {
+  if (!d3.event.active) force.alphaTarget(0.3).restart();
+  d.fx = d.x;
+  d.fy = d.y;
+}
+
+function dragging(d) {
+  d.fx = d3.event.x;
+  d.fy = d3.event.y;
+}
+
+function dragEnded(d) {
+  if (!d3.event.active) force.alphaTarget(0);
+  d.fx = null;
+  d.fy = null;
+}
