@@ -18,7 +18,8 @@ module.exports = {
     freakout: './src/10-freakout.js',
     pie_doughnut: './src/11-pie-doughnut-chart.js',
     stacked_bar_chart: './src/12-stacked-bar-chart.js',
-    stacked_area_chart: './src/13-stacked-area-chart.js'
+    stacked_area_chart: './src/13-stacked-area-chart.js',
+    force_layout: './src/14-force-layout.js'
   },
   output: {
     filename: '[name].bundle.js',
@@ -106,6 +107,11 @@ module.exports = {
       filename: '13-stacked-area-chart.html',
       template: __dirname + '/public/13-stacked-area-chart.html',
       chunks: ['commons', 'stacked_area_chart']
+    }),
+    new HtmlWebpackPlugin({
+      filename: '14-force-layout.html',
+      template: __dirname + '/public/14-force-layout.html',
+      chunks: ['commons', 'force_layout']
     }),
     new CopyWebpackPlugin([
       {
