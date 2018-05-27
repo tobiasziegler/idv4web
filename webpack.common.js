@@ -19,7 +19,8 @@ module.exports = {
     pie_doughnut: './src/11-pie-doughnut-chart.js',
     stacked_bar_chart: './src/12-stacked-bar-chart.js',
     stacked_area_chart: './src/13-stacked-area-chart.js',
-    force_layout: './src/14-force-layout.js'
+    force_layout: './src/14-force-layout.js',
+    us_map: './src/15-us-map.js'
   },
   output: {
     filename: '[name].bundle.js',
@@ -112,6 +113,11 @@ module.exports = {
       filename: '14-force-layout.html',
       template: __dirname + '/public/14-force-layout.html',
       chunks: ['commons', 'force_layout']
+    }),
+    new HtmlWebpackPlugin({
+      filename: '15-us-map.html',
+      template: __dirname + '/public/15-us-map.html',
+      chunks: ['commons', 'us_map']
     }),
     new CopyWebpackPlugin([
       {
