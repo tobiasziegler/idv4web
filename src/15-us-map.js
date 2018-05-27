@@ -24,6 +24,9 @@ var color = d3
 // Colors derived from ColorBrewer, by Cynthia Brewer, and included in
 // https://github.com/d3/d3-scale-chromatic
 
+// Number formatting for population values
+const formatAsThousands = d3.format(','); // e.g. converts 123456 to "123,456"
+
 // Create SVG element
 const svg = d3
   .select('body')
@@ -80,5 +83,23 @@ d3.csv('data/us-ag-productivity.csv').then(data => {
           return '#ccc';
         }
       });
+
+    // Load in cities data
+    d3.csv('data/us-cities.csv').then(cities => {
+      svg
+        .selectAll('circle')
+        .data(cities)
+        .enter()
+        .append('circle')
+        .attr('cx', d => projection([d.lon, d.lat])[0])
+        .attr('cy', d => projection([d.lon, d.lat])[1])
+        .attr('r', 5)
+        .style('fill', 'yellow')
+        .style('stroke', 'gray')
+        .style('stroke-width', 0.25)
+        .style('opacity', 0.75)
+        .append('title') // Simple tooltip
+        .text(d => `${d.place}: Pop. ${formatAsThousands(d.population)}`);
+    });
   });
 });
