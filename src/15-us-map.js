@@ -93,7 +93,7 @@ d3.csv('data/us-ag-productivity.csv').then(data => {
         .append('circle')
         .attr('cx', d => projection([d.lon, d.lat])[0])
         .attr('cy', d => projection([d.lon, d.lat])[1])
-        .attr('r', 5)
+        .attr('r', d => Math.sqrt(parseInt(d.population) * 0.00004))
         .style('fill', 'yellow')
         .style('stroke', 'gray')
         .style('stroke-width', 0.25)
