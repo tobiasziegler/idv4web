@@ -5,7 +5,8 @@ const w = 500;
 const h = 300;
 
 // Define path generator, using the Albers USA projection
-const path = d3.geoPath().projection(d3.geoAlbersUsa());
+const projection = d3.geoAlbersUsa().translate([w / 2, h / 2]);
+const path = d3.geoPath().projection(projection);
 
 // Create SVG element
 const svg = d3
