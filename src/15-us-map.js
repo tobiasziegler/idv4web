@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import './15-us-map.css';
 
 // Width and height
 const w = 500;
@@ -8,7 +9,7 @@ const h = 300;
 const projection = d3
   .geoAlbersUsa()
   .translate([w / 2, h / 2])
-  .scale([500]);
+  .scale([2000]);
 const path = d3.geoPath().projection(projection);
 
 // Define quantize scale to sort data values into buckets of color
@@ -100,6 +101,123 @@ d3.csv('data/us-ag-productivity.csv').then(data => {
         .style('opacity', 0.75)
         .append('title') // Simple tooltip
         .text(d => `${d.place}: Pop. ${formatAsThousands(d.population)}`);
+
+      createPanButtons();
     });
   });
 });
+
+const createPanButtons = () => {
+  // Create the clickable groups
+
+  // North
+  const north = svg
+    .append('g')
+    .attr('class', 'pan') // All share the 'pan' class
+    .attr('id', 'north'); // The ID will tell us which direction to head
+  north
+    .append('rect')
+    .attr('x', 0)
+    .attr('y', 0)
+    .attr('width', w)
+    .attr('height', 30);
+  north
+    .append('text')
+    .attr('x', w / 2)
+    .attr('y', 20)
+    .html('&uarr;');
+
+  // South
+  const south = svg
+    .append('g')
+    .attr('class', 'pan')
+    .attr('id', 'south');
+  south
+    .append('rect')
+    .attr('x', 0)
+    .attr('y', h - 30)
+    .attr('width', w)
+    .attr('height', 30);
+  south
+    .append('text')
+    .attr('x', w / 2)
+    .attr('y', h - 10)
+    .html('&darr;');
+
+  // West
+  const west = svg
+    .append('g')
+    .attr('class', 'pan')
+    .attr('id', 'west');
+  west
+    .append('rect')
+    .attr('x', 0)
+    .attr('y', 30)
+    .attr('width', 30)
+    .attr('height', h - 60);
+  west
+    .append('text')
+    .attr('x', 15)
+    .attr('y', h / 2)
+    .html('&larr;');
+
+  // East
+  const east = svg
+    .append('g')
+    .attr('class', 'pan')
+    .attr('id', 'east');
+  east
+    .append('rect')
+    .attr('x', w - 30)
+    .attr('y', 30)
+    .attr('width', 30)
+    .attr('height', h - 60);
+  east
+    .append('text')
+    .attr('x', w - 15)
+    .attr('y', h / 2)
+    .html('&rarr;');
+
+  // Panning interaction
+  d3.selectAll('.pan').on('click', function() {
+    // Get current translation offset
+    let offset = projection.translate();
+    // Set how much to move on each click
+    const moveAmount = 50;
+
+    // Which way are we headed?
+    const direction = d3.select(this).attr('id');
+
+    // Modify the offset, depending on the direction
+    switch (direction) {
+      case 'north':
+        offset[1] += moveAmount; // Increase y offset
+        break;
+      case 'south':
+        offset[1] -= moveAmount; // Decrease y offset
+        break;
+      case 'west':
+        offset[0] += moveAmount; // Increase x offset
+        break;
+      case 'east':
+        offset[0] -= moveAmount; // Decrease x offset
+        break;
+      default:
+        break;
+    }
+
+    // Update projection with new offset
+    projection.translate(offset);
+
+    // Update all paths and circles
+    svg.selectAll('path').attr('d', path);
+    svg
+      .selectAll('circle')
+      .attr('cx', function(d) {
+        return projection([d.lon, d.lat])[0];
+      })
+      .attr('cy', function(d) {
+        return projection([d.lon, d.lat])[1];
+      });
+  });
+};
