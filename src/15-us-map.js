@@ -26,5 +26,6 @@ d3.json('data/us-states.json').then(json => {
     .data(json.features)
     .enter()
     .append('path')
-    .attr('d', path);
+    .attr('d', path)
+    .style('fill', 'steelblue');
 });
