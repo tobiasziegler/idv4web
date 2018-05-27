@@ -210,9 +210,13 @@ const createPanButtons = () => {
     projection.translate(offset);
 
     // Update all paths and circles
-    svg.selectAll('path').attr('d', path);
+    svg
+      .selectAll('path')
+      .transition()
+      .attr('d', path);
     svg
       .selectAll('circle')
+      .transition()
       .attr('cx', function(d) {
         return projection([d.lon, d.lat])[0];
       })
