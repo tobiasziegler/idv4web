@@ -1,13 +1,24 @@
-.pan rect {
+.pan rect,
+.zoom rect {
   fill: black;
   opacity: 0.2;
 }
-.pan text {
+
+.zoom rect {
+  rx: 5; /* Rounded corners */
+  ry: 5;
+}
+
+.pan text,
+.zoom text {
   fill: black;
   font-size: 18px;
   text-anchor: middle;
 }
+
 .pan:hover rect,
-.pan:hover text {
+.pan:hover text,
+.zoom:hover rect,
+.zoom:hover text {
   fill: blue;
 }

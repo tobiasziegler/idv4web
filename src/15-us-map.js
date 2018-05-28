@@ -150,6 +150,7 @@ d3.csv('data/us-ag-productivity.csv').then(data => {
         .text(d => `${d.place}: Pop. ${formatAsThousands(d.population)}`);
 
       createPanButtons();
+      createZoomButtons();
     });
   });
 });
@@ -257,5 +258,69 @@ const createPanButtons = () => {
 
     // This triggers a zoom event, translating by x, y
     map.transition().call(zoom.translateBy, x, y);
+  });
+};
+
+// Create zoom buttons
+const createZoomButtons = () => {
+  // Create the clickable groups
+  // Zoom in button
+  const zoomIn = svg
+    .append('g')
+    .attr('class', 'zoom') // All share the 'zoom' class
+    .attr('id', 'in') // The ID will tell us which direction to head
+    .attr('transform', 'translate(' + (w - 110) + ',' + (h - 70) + ')');
+  zoomIn
+    .append('rect')
+    .attr('x', 0)
+    .attr('y', 0)
+    .attr('width', 30)
+    .attr('height', 30);
+  zoomIn
+    .append('text')
+    .attr('x', 15)
+    .attr('y', 20)
+    .text('+');
+
+  // Zoom out button
+  const zoomOut = svg
+    .append('g')
+    .attr('class', 'zoom')
+    .attr('id', 'out')
+    .attr('transform', 'translate(' + (w - 70) + ',' + (h - 70) + ')');
+  zoomOut
+    .append('rect')
+    .attr('x', 0)
+    .attr('y', 0)
+    .attr('width', 30)
+    .attr('height', 30);
+  zoomOut
+    .append('text')
+    .attr('x', 15)
+    .attr('y', 20)
+    .html('&ndash;');
+
+  // Zooming interaction
+  d3.selectAll('.zoom').on('click', function() {
+    // Set how much to scale on each click
+    let scaleFactor;
+
+    // Which way are we headed?
+    const direction = d3.select(this).attr('id');
+
+    // Modify the k scale value, depending on the direction
+    switch (direction) {
+      case 'in':
+        scaleFactor = 1.5;
+        break;
+      case 'out':
+        scaleFactor = 0.75;
+        break;
+      default:
+        break;
+    }
+
+    // This triggers a zoom event, scaling by 'scaleFactor'
+    map.transition().call(zoom.scaleBy, scaleFactor);
   });
 };
