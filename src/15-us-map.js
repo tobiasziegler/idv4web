@@ -227,10 +227,12 @@ const createPanButtons = () => {
 
   // Panning interaction
   d3.selectAll('.pan').on('click', function() {
-    // Get current translation offset
-    let offset = projection.translate();
     // Set how much to move on each click
     const moveAmount = 50;
+
+    // Set x/y to zero for now
+    let x = 0;
+    let y = 0;
 
     // Which way are we headed?
     const direction = d3.select(this).attr('id');
@@ -238,37 +240,22 @@ const createPanButtons = () => {
     // Modify the offset, depending on the direction
     switch (direction) {
       case 'north':
-        offset[1] += moveAmount; // Increase y offset
+        y += moveAmount; // Increase y offset
         break;
       case 'south':
-        offset[1] -= moveAmount; // Decrease y offset
+        y -= moveAmount; // Decrease y offset
         break;
       case 'west':
-        offset[0] += moveAmount; // Increase x offset
+        x += moveAmount; // Increase x offset
         break;
       case 'east':
-        offset[0] -= moveAmount; // Decrease x offset
+        x -= moveAmount; // Decrease x offset
         break;
       default:
         break;
     }
 
-    // Update projection with new offset
-    projection.translate(offset);
-
-    // Update all paths and circles
-    svg
-      .selectAll('path')
-      .transition()
-      .attr('d', path);
-    svg
-      .selectAll('circle')
-      .transition()
-      .attr('cx', function(d) {
-        return projection([d.lon, d.lat])[0];
-      })
-      .attr('cy', function(d) {
-        return projection([d.lon, d.lat])[1];
-      });
+    // This triggers a zoom event, translating by x, y
+    map.transition().call(zoom.translateBy, x, y);
   });
 };
