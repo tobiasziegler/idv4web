@@ -25,6 +25,9 @@ var color = d3
 // Number formatting for population values
 const formatAsThousands = d3.format(','); // e.g. converts 123456 to "123,456"
 
+// Number formatting for ag productivity values
+const formatDecimals = d3.format('.3'); // e.g. converts 1.23456 to "1.23"
+
 // Create SVG element
 const svg = d3
   .select('body')
@@ -52,6 +55,11 @@ const zooming = d => {
     .selectAll('circle')
     .attr('cx', d => projection([d.lon, d.lat])[0])
     .attr('cy', d => projection([d.lon, d.lat])[1]);
+
+  svg
+    .selectAll('.label')
+    .attr('x', d => path.centroid(d)[0])
+    .attr('y', d => path.centroid(d)[1]);
 };
 
 // Then define the zoom behavior
@@ -133,6 +141,21 @@ d3.csv('data/us-ag-productivity.csv').then(data => {
         } else {
           // If value is undefined...
           return '#ccc';
+        }
+      });
+
+    // Create one label per state
+    map
+      .selectAll('text')
+      .data(json.features)
+      .enter()
+      .append('text')
+      .attr('class', 'label')
+      .attr('x', d => path.centroid(d)[0])
+      .attr('y', d => path.centroid(d)[1])
+      .text(d => {
+        if (d.properties.value) {
+          return formatDecimals(d.properties.value);
         }
       });
 

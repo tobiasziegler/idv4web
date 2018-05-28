@@ -26,3 +26,10 @@ div {
 .zoom:hover text {
   fill: blue;
 }
+
+.label {
+  font-family: Helvetica, sans-serif;
+  font-size: 11px;
+  fill: black;
+  text-anchor: middle;
+}
