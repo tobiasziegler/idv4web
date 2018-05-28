@@ -35,6 +35,38 @@ const svg = d3
   .attr('width', w)
   .attr('height', h);
 
+// Define what to do when dragging
+const dragging = d => {
+  // Log out d3.event, so you can see all the goodies inside
+  // console.log(d3.event);
+
+  // Get the current (pre-dragging) translation offset
+  let offset = projection.translate();
+
+  // Augment the offset, following the mouse movement
+  offset[0] += d3.event.dx;
+  offset[1] += d3.event.dy;
+
+  // Update projection with new offset
+  projection.translate(offset);
+
+  // Update all paths and circles
+  svg.selectAll('path').attr('d', path);
+  svg
+    .selectAll('circle')
+    .attr('cx', d => projection([d.lon, d.lat])[0])
+    .attr('cy', d => projection([d.lon, d.lat])[1]);
+};
+
+// Then define the drag behavior
+const drag = d3.drag().on('drag', dragging);
+
+// Create a container in which all pan-able elements will live
+const map = svg
+  .append('g')
+  .attr('id', 'map')
+  .call(drag); // Bind the dragging behavior
+
 // Load in agriculture data
 d3.csv('data/us-ag-productivity.csv').then(data => {
   // Set input domain for color scale
@@ -66,7 +98,7 @@ d3.csv('data/us-ag-productivity.csv').then(data => {
     }
 
     // Bind data and create one path per GeoJSON feature
-    svg
+    map
       .selectAll('path')
       .data(json.features)
       .enter()
@@ -87,7 +119,7 @@ d3.csv('data/us-ag-productivity.csv').then(data => {
 
     // Load in cities data
     d3.csv('data/us-cities.csv').then(cities => {
-      svg
+      map
         .selectAll('circle')
         .data(cities)
         .enter()
