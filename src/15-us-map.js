@@ -67,6 +67,15 @@ const map = svg
   .attr('id', 'map')
   .call(drag); // Bind the dragging behavior
 
+// Create a new, invisible background rect to catch drag events
+map
+  .append('rect')
+  .attr('x', 0)
+  .attr('y', 0)
+  .attr('width', w)
+  .attr('height', h)
+  .attr('opacity', 0);
+
 // Load in agriculture data
 d3.csv('data/us-ag-productivity.csv').then(data => {
   // Set input domain for color scale
