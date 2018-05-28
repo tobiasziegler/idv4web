@@ -6,10 +6,7 @@ const w = 500;
 const h = 300;
 
 // Define path generator, using the Albers USA projection
-const projection = d3
-  .geoAlbersUsa()
-  .translate([w / 2, h / 2])
-  .scale([2000]);
+const projection = d3.geoAlbersUsa().translate([0, 0]);
 const path = d3.geoPath().projection(projection);
 
 // Define quantize scale to sort data values into buckets of color
@@ -35,20 +32,19 @@ const svg = d3
   .attr('width', w)
   .attr('height', h);
 
-// Define what to do when dragging
-const dragging = d => {
-  // Log out d3.event, so you can see all the goodies inside
-  // console.log(d3.event);
+// Define what to do when panning or zooming
+const zooming = d => {
+  // Log out d3.event.transform, so you can see all the goodies inside
+  // console.log(d3.event.transform);
 
-  // Get the current (pre-dragging) translation offset
-  let offset = projection.translate();
+  // New offset array
+  const offset = [d3.event.transform.x, d3.event.transform.y];
 
-  // Augment the offset, following the mouse movement
-  offset[0] += d3.event.dx;
-  offset[1] += d3.event.dy;
+  // Calculate new scale
+  const newScale = d3.event.transform.k * 2000;
 
-  // Update projection with new offset
-  projection.translate(offset);
+  // Update projection with new offset and scale
+  projection.translate(offset).scale(newScale);
 
   // Update all paths and circles
   svg.selectAll('path').attr('d', path);
@@ -58,16 +54,26 @@ const dragging = d => {
     .attr('cy', d => projection([d.lon, d.lat])[1]);
 };
 
-// Then define the drag behavior
-const drag = d3.drag().on('drag', dragging);
+// Then define the zoom behavior
+const zoom = d3.zoom().on('zoom', zooming);
 
-// Create a container in which all pan-able elements will live
+// The center of the country, roughly
+const center = projection([-97.0, 39.0]);
+
+// Create a container in which all zoom-able elements will live
 const map = svg
   .append('g')
   .attr('id', 'map')
-  .call(drag); // Bind the dragging behavior
+  .call(zoom) // Bind the zoom behavior
+  .call(
+    zoom.transform,
+    d3.zoomIdentity // Then apply the initial transform
+      .translate(w / 2, h / 2)
+      .scale(0.25)
+      .translate(-center[0], -center[1])
+  );
 
-// Create a new, invisible background rect to catch drag events
+// Create a new, invisible background rect to catch zoom events
 map
   .append('rect')
   .attr('x', 0)
