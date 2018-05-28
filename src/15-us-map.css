@@ -1,3 +1,7 @@
+div {
+  margin-bottom: 10px;
+}
+
 .pan rect,
 .zoom rect {
   fill: black;

@@ -328,3 +328,25 @@ const createZoomButtons = () => {
     map.transition().call(zoom.scaleBy, scaleFactor);
   });
 };
+
+// Bind 'Pacific Northwest' button behavior
+d3.select('#pnw').on('click', () => {
+  map.transition().call(
+    zoom.transform,
+    d3.zoomIdentity
+      .translate(w / 2, h / 2)
+      .scale(0.9)
+      .translate(600, 300)
+  );
+});
+
+// Bind 'Reset' button behavior
+d3.select('#reset').on('click', () => {
+  map.transition().call(
+    zoom.transform,
+    d3.zoomIdentity // Same as the initial transform
+      .translate(w / 2, h / 2)
+      .scale(0.25)
+      .translate(-center[0], -center[1])
+  );
+});
