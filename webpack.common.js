@@ -20,7 +20,8 @@ module.exports = {
     stacked_bar_chart: './src/12-stacked-bar-chart.js',
     stacked_area_chart: './src/13-stacked-area-chart.js',
     force_layout: './src/14-force-layout.js',
-    us_map: './src/15-us-map.js'
+    us_map: './src/15-us-map.js',
+    oceans_map: './src/16-oceans-map.js'
   },
   output: {
     filename: '[name].bundle.js',
@@ -118,6 +119,11 @@ module.exports = {
       filename: '15-us-map.html',
       template: __dirname + '/public/15-us-map.html',
       chunks: ['commons', 'us_map']
+    }),
+    new HtmlWebpackPlugin({
+      filename: '16-oceans-map.html',
+      template: __dirname + '/public/16-oceans-map.html',
+      chunks: ['commons', 'oceans_map']
     }),
     new CopyWebpackPlugin([
       {
