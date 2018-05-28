@@ -55,7 +55,11 @@ const zooming = d => {
 };
 
 // Then define the zoom behavior
-const zoom = d3.zoom().on('zoom', zooming);
+const zoom = d3
+  .zoom()
+  .scaleExtent([0.2, 2.0])
+  .translateExtent([[-1200, -700], [1200, 700]])
+  .on('zoom', zooming);
 
 // The center of the country, roughly
 const center = projection([-97.0, 39.0]);
