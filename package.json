@@ -7,6 +7,8 @@
   "scripts": {
     "start": "webpack-dev-server --mode development --config webpack.dev.js",
     "build": "webpack --mode production --config webpack.prod.js",
+    "deploy": "gh-pages -d dist",
+    "publish": "npm run build && npm run deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,6 +31,7 @@
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",
+    "gh-pages": "^1.1.0",
     "html-webpack-plugin": "^3.2.0",
     "prettier": "^1.13.3",
     "style-loader": "^0.21.0",
