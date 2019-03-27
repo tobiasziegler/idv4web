@@ -21,6 +21,7 @@
     "url": "https://github.com/tobiasziegler/idv4web/issues"
   },
   "homepage": "https://github.com/tobiasziegler/idv4web#readme",
+  "private": true,
   "dependencies": {
     "d3": "^5.9.2"
   },
